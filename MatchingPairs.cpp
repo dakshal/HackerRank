@@ -27,7 +27,7 @@ array[0] = str.at(0);
 bool isUpperCase(char ch) {
 	string str = "ABCDEFGHIGKLMNOPQRSTUVWXYZ";
 	int pos = str.find(ch);
-	if (pos >= 0 && pos < 26)
+	if (pos >= 0)
 		return true;
 	else
 		return false;
