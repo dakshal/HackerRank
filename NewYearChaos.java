@@ -14,7 +14,6 @@ public class NewYearChaos {
         boolean invalide = false;
         for(int i=q.length-1; i>=0; i--){
             if(q[i] - (i+1)>2){
-                            // System.out.println(q[i] - (i+1) +"\t"+q[i]+"\t"+i +"\t"+count);
                 invalide = true;
                 break;
             }
