@@ -26,7 +26,7 @@ public class NewYearChaos {
             }
         }
         if(invalide){
-            System.out.println("Too chaotic");
+            System.out.println("Too chaotic!!!");
         } else {
             System.out.println(count);
         }
