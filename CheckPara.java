@@ -1,3 +1,4 @@
+
 /*package whatever //do not write package name here */
 
 import java.util.*;
@@ -5,69 +6,82 @@ import java.lang.*;
 import java.io.*;
 
 class GFG {
-    
-    class stack{
-        ArrayList<String> st = new ArrayList<>();
-        
-        public ArrayList<String> getList() {
+
+    private static class stack {
+        ArrayList<Character> st = new ArrayList<>();
+
+        public ArrayList<Character> getList() {
             return st;
         }
-        
-        public String pop(){
-            String par = st.get(st.size()-1);
-            st.remove(st.size()-1);
+
+        public char pop() {
+            char par = st.get(st.size() - 1);
+            st.remove(st.size() - 1);
             return par;
         }
-        public String last(){
-            return st.get(st.size()-1);
+
+        public char last() {
+            return st.get(st.size() - 1);
         }
-        
-        public void push(String par) {
+
+        public void push(char par) {
             st.add(par);
         }
-        
-        public boolean isEmpty(){
-            if(st == null || st.size()==0){
+
+        public boolean isEmpty() {
+            if (st == null || st.size() == 0) {
                 return true;
             }
             return false;
         }
-        
-        public boolean isMatching(String var1, String var2){
-            if(var1.equals("(") && var2.equals(")")){
+
+        public boolean isMatching(char var1, char var2) {
+            if (var1 == '(' && var2 == ')') {
                 return true;
-            }else if(var1.equals("[") && var2.equals("]")){
+            } else if (var1 == '{' && var2 == '}') {
                 return true;
-            }else if(var1.equals("{") && var2.equals("}")){
+            } else if (var1 == '[' && var2 == ']') {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
-        
+
     }
-    
-	public static void main (String[] args) {
-	    Scanner sc = new Scanner(System.in);
-	    
-	    String exp = sc.nextLine();
-	    stack st = new stack();
-	    for(int i=0; i<exp.length;i++){
-	        if(exp.charAt(i) == "(" || exp.charAt(i)=="{" || exp.chatAt(i) == "["){
-	            st.push(exp.charAt(i));
-	        }
-	        if(st.isEmpty()){
-	            System.out.println("Not valide Expression!!!");
-	            break;
-	        }
-	        
-	        if(st.isMatching(st.last(), exp.charAt(i))){
-	            st.pop();
-	        } else {
-	            System.out.println("Not valide Expression!!!");
-	            break;
-	        }
-	    }
-	}
+
+    public static boolean checkPara(String exp) {
+        stack st = new stack();
+//      System.out.println(exp);
+        for (int i = 0; i < exp.length(); i++) {
+            if (exp.charAt(i) == '(' || exp.charAt(i) == '{' || exp.charAt(i) == '[') {
+                st.push(exp.charAt(i));
+            } else {
+//              System.out.println(st.last() + "\t" + exp.charAt(i) + "\t" + i);
+                if (st.isEmpty()) {
+                    return false;
+                }
+                if (st.isMatching(st.last(), exp.charAt(i))) {
+                    st.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int loop = Integer.parseInt(sc.nextLine());
+
+        for (int i = 0; i < loop; i++) {
+            String exp = sc.nextLine();
+            if (checkPara(exp)) {
+                System.out.println("balanced");
+            } else {
+                System.out.println("Not valide Expression!!!");
+            }
+        }
+    }
 }
