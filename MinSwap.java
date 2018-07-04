@@ -7,25 +7,31 @@ import java.util.concurrent.*;
 import java.util.regex.*;
 
 public class Solution {
+    
+    
 
-    static void swap(int x, int y) {
-        int temp = x;
-        x = y;
-        y = temp;
-    }
     // Complete the minimumSwaps function below.
     static int minimumSwaps(int[] arr) {
-        int i = 0,c=0,n=arr.length;
-        for(i=0;i<n;i++)
+        int c=0,n=arr.length;
+        for(int i=0;i<n;i++)
         {
-            if(arr[i]==(i+1))
-                continue;
-
-            swap(arr[i],arr[arr[i]-1]);
-            c++;
-            i--;
+            if(arr[i]!=i+1){
+                int temp = arr[i];
+                int temp2 = arr[temp-1];
+                arr[temp-1] = temp;
+                arr[i] = temp2;
+                c++;
+                i--;
+            }
+            // print(arr);
         }
         return c;
+    }
+    static void print(int[] arr){
+        for(int i=0; i<arr.length; i++){
+            System.out.print(arr[i]+"\t");
+        }
+        System.out.println();
     }
 
     private static final Scanner scanner = new Scanner(System.in);
