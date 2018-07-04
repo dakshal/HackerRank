@@ -8,25 +8,24 @@ import java.util.regex.*;
 
 public class Solution {
 
+    static void swap(int x, int y) {
+        int temp = x;
+        x = y;
+        y = temp;
+    }
     // Complete the minimumSwaps function below.
     static int minimumSwaps(int[] arr) {
-        int count = 0;
-        for(int i=0 ;i<arr.length; i++){
-            int pos = i;
-            for(int j=i+1; j< arr.length; j++){
-                if(arr[j]<arr[pos]){
-                    pos = j;
-                }
-            }
-            if(i!=pos){
-                int min = arr[pos];
-                arr[pos] = arr[i];
-                arr[i] = min;
-                count++;
-            }
-        }
-        return count;
+        int i = 0,c=0,n=arr.length;
+        for(i=0;i<n;i++)
+        {
+            if(arr[i]==(i+1))
+                continue;
 
+            swap(arr[i],arr[arr[i]-1]);
+            c++;
+            i--;
+        }
+        return c;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
