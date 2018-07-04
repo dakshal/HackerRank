@@ -1,10 +1,10 @@
-	/*
+    /*
     class Node 
-    	int data;
-    	Node left;
-    	Node right;
-	*/
-	public static Node lca(Node root, int v1, int v2) {        
+        int data;
+        Node left;
+        Node right;
+    */
+    public static Node lca(Node root, int v1, int v2) {        
         ArrayList<Node> parentV1 = new ArrayList<>();
         ArrayList<Node> parentV2 = new ArrayList<>();
         
@@ -21,10 +21,9 @@
 //         System.out.println();
         
         int i=0;
-        Node node = root;
-        while((i+1)<parentV1.size() && (i+1)<parentV2.size()){
-            if(parentV1.get(i+1) != parentV2.get(i+1)){
-                node = parentV1.get(i);
+        Node node = parentV1.get(0);
+        while((i)<parentV1.size() && (i)<parentV2.size()){
+            if(parentV1.get(i) != parentV2.get(i)){
                 break;
             } else {
                 node = parentV1.get(i);
