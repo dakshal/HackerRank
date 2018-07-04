@@ -67,7 +67,11 @@ class GFG {
                 }
             }
         }
-        return true;
+
+        if(st.isEmpty())
+            return true;
+        else 
+            return false;
     }
 
     public static void main(String[] args) {
@@ -80,7 +84,7 @@ class GFG {
             if (checkPara(exp)) {
                 System.out.println("balanced");
             } else {
-                System.out.println("Not valide Expression!!!");
+                System.out.println("not balanced");
             }
         }
     }
