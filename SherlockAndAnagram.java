@@ -8,66 +8,35 @@ import java.util.regex.*;
 
 public class Solution {
     
-    static HashMap<HashMap<Character, Integer>, Integer> isMatch(HashMap<Character, Integer> map,
-			HashMap<HashMap<Character, Integer>, Integer> anagram) {
-		int count = 0;
-		boolean match = true;
-		for (HashMap<Character, Integer> hm : anagram.keySet()) {
-			if (map.size() == hm.size()) {
-				for (Character key : map.keySet()) {
-					// System.out.println(hm.get(key) + "\t" + key + "\t" + map.get(key));
-					if (hm.containsKey(key)) {
-						if (hm.get(key) == map.get(key)) {
-							match = true;
-						} else {
-							match = false;
-							break;
-						}
-					} else {
-						match = false;
-						break;
-					}
-				}
-				if (match) {
-					anagram.put(hm, anagram.get(hm)+1);
-					return anagram;
-				}
-			} else {
-				match = false;
-			}
-		}
-		if (!match) {
-			anagram.put(map, 0);
-		}
-		if (anagram.size() == 0) {
-			anagram.put(map, 0);
-		}
-		return anagram;
+	public static String sortString(String inputString) {
+		char tempArray[] = inputString.toCharArray();
+		Arrays.sort(tempArray);
+		return new String(tempArray);
 	}
 
 	// Complete the sherlockAndAnagrams function below.
 	static int sherlockAndAnagrams(String s) {
 
-		HashMap<HashMap<Character, Integer>, Integer> anagram = new HashMap<>();
 		int count = 0;
+		HashMap<String, Integer> anagramList = new HashMap<>();
 
-		for (int i = 0; i <= s.length(); i++) {
-			for (int j = i + 1; j <= s.length(); j++) {
-				String part = s.substring(i, j);
-				HashMap<Character, Integer> map = new HashMap<>();
-				for (int k = 0; k < part.length(); k++) {
-					if (map.containsKey(part.charAt(k))) {
-						map.put(part.charAt(k), map.get(part.charAt(k)) + 1);
-					} else {
-						map.put(part.charAt(k), 1);
-					}
+		for (int i = 0; i < s.length(); i++) {
+			for (int j = i + 1; j < s.length()+1; j++) {
+				String sorted = sortString(s.substring(i, j));
+                // System.out.println(sorted);
+				if (anagramList.containsKey(sorted)) {
+					anagramList.put(sorted, anagramList.get(sorted) + 1);
+				} else {
+					anagramList.put(sorted, 0);
 				}
-				anagram = isMatch(map, anagram);
 			}
 		}
-		for (int value : anagram.values()) {
-			count += (value*(value+1))/2;
+
+		for (int values : anagramList.values()) {
+                            // System.out.println(values);
+			count += (values * (values + 1)) / 2;
 		}
+
 		return count;
 	}
 
