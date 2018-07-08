@@ -8,16 +8,17 @@ import java.util.regex.*;
 
 public class Solution {
     
-    static int isMatch(HashMap<Character, Integer> map, ArrayList<HashMap<Character, Integer>> anagram) {
+    static HashMap<HashMap<Character, Integer>, Integer> isMatch(HashMap<Character, Integer> map,
+			HashMap<HashMap<Character, Integer>, Integer> anagram) {
 		int count = 0;
-		for (HashMap<Character, Integer> hm : anagram) {
+		boolean match = true;
+		for (HashMap<Character, Integer> hm : anagram.keySet()) {
 			if (map.size() == hm.size()) {
-				boolean match = true;
 				for (Character key : map.keySet()) {
 					// System.out.println(hm.get(key) + "\t" + key + "\t" + map.get(key));
 					if (hm.containsKey(key)) {
 						if (hm.get(key) == map.get(key)) {
-
+							match = true;
 						} else {
 							match = false;
 							break;
@@ -27,17 +28,27 @@ public class Solution {
 						break;
 					}
 				}
-				if (match)
-					count++;
+				if (match) {
+					anagram.put(hm, anagram.get(hm)+1);
+					return anagram;
+				}
+			} else {
+				match = false;
 			}
 		}
-		return count;
+		if (!match) {
+			anagram.put(map, 0);
+		}
+		if (anagram.size() == 0) {
+			anagram.put(map, 0);
+		}
+		return anagram;
 	}
 
 	// Complete the sherlockAndAnagrams function below.
 	static int sherlockAndAnagrams(String s) {
 
-		ArrayList<HashMap<Character, Integer>> anagram = new ArrayList<>();
+		HashMap<HashMap<Character, Integer>, Integer> anagram = new HashMap<>();
 		int count = 0;
 
 		for (int i = 0; i <= s.length(); i++) {
@@ -51,16 +62,11 @@ public class Solution {
 						map.put(part.charAt(k), 1);
 					}
 				}
-				count += isMatch(map, anagram);
-//				if (isMatch(map, anagram) != 0) {
-//					count++;
-//				} // else {
-				anagram.add(map);
-//				}
-				// System.out.println(part +"\t" + anagram.size()+"\t"+map.size()+ "\t" +
-				// count);
-
+				anagram = isMatch(map, anagram);
 			}
+		}
+		for (int value : anagram.values()) {
+			count += (value*(value+1))/2;
 		}
 		return count;
 	}
