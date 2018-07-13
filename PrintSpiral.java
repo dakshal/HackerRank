@@ -9,7 +9,7 @@ class Solution {
         boolean increment = true, horizontal = true;
         int i=0, j=0;
         while(spiral.size()<matSize) {
-            // System.out.println(i+"\t"+j+"\t"+matrix[i][j]+"\t"+matrix.length+"\t"+matrix[0].length);
+            // System.out.println(i+"\t"+j+"\t"+matrix[i][j]+"\t"+matrix.length+"\t"+matrix[0].length+"\t"+increment+"\t"+horizontal+"\t"+count);
             spiral.add(matrix[i][j]);
             if(increment){
                 if(horizontal){
@@ -40,14 +40,14 @@ class Solution {
                     }
                     break;
                 case 3:
-                    if(j >= (count - 3)/4){
+                    if(j <= (count - 3)/4){
                         horizontal = false;
                         increment = false;
                         count++;
                     }
                     break;
                 case 0:
-                    if(i >= count/4){
+                    if(i <= count/4){
                         horizontal = true;
                         increment = true;
                         count++;
