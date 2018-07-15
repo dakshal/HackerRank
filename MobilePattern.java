@@ -32,7 +32,7 @@ class Solution {
         }
         
         for(int i=0; i<indirectNeighbour[last].length; i++){
-            int nbr = directNeighbour[last][i];
+            int nbr = indirectNeighbour[last][i];
             if(p.contains(nbr/10+"") && !p.contains(nbr%10+"") ){
                 sum += findPairs(m, n, new StringBuilder(p).append(nbr%10).toString());
             }
