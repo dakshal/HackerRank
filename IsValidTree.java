@@ -12,19 +12,19 @@ class Solution {
         if(root == null){
             return true;
         }
-        return checkTree(root, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        return checkTree(root, Long.MAX_VALUE, Long.MIN_VALUE);
     }
     
-    public boolean checkTree(TreeNode root, int higher, int lower){
+    public boolean checkTree(TreeNode root, Long higher, Long lower){
         if(root == null) return true;
         boolean status = true;
         if(root.val > lower && root.val < higher) {
-            status = status && checkTree(root.left, root.val, lower);
+            status = status && checkTree(root.left, (long) root.val, lower);
         } else {
             return false;
         }
         if(root.val > lower && root.val < higher) {
-            status = status && checkTree(root.right,higher, root.val);
+            status = status && checkTree(root.right, higher, (long) root.val);
         } else {
             return false;
         }
