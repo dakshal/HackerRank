@@ -13,50 +13,31 @@ class Node {
 };
 */
 class Solution {
-    public Node insert(Node head, int insertVal) {
-        if(head == null){
-            // System.out.println("head is null:");
-            return new Node(insertVal, null);
+   public Node insert(Node head, int insertVal) {
+        if (head == null) {
+            Node node = new Node(insertVal, null);
+            node.next = node;
+            return node;
         }
-        
-        if(head.next == head){
-            // System.out.println("head is same as next");
-            head.next = new Node(insertVal, head);
-            return head;
-        }
-        
-        Node next = head.next;
-        Node prev = head;
-        Node least = head;
-        Node highest = head;
-        // System.out.println("Initial Params:- "+prev.val+"\t"+next.val+"\t"+insertVal);
-        
-        while((next != head) && ((prev.val < insertVal && next.val < insertVal) || (prev.val > insertVal && next.val > insertVal))){
-        // System.out.println("Moving Next:- "+prev.val+"\t"+next.val+"\t"+insertVal);
-            if(least.val > next.val) {
-                least = next;
+        Node p = head;
+        Node maxNode = head;
+        while (true) {
+            if (p.val >= maxNode.val) {
+                maxNode = p;
             }
-            if(highest.val < next.val) {
-                highest = next;
-            }
-            prev = next;
-            next = next.next;
-        }
-        // System.out.println("Done with While:- "+prev.val+"\t"+next.val+"\t"+head.val+"\t"+insertVal);
-        if(next == head) {
-            Node nextNode = new Node(insertVal, highest.next);
-            highest.next = nextNode;
-            return head;
-        } else {
-            if(next.val < insertVal){
-                Node nextNode = new Node(insertVal, next.next);
-                next.next = nextNode;
+            if (p.val <= insertVal && p.next.val >= insertVal) {
+                Node next = p.next;
+                p.next = new Node(insertVal, next);
                 return head;
             } else {
-                Node nextNode = new Node(insertVal, prev.next);
-                prev.next = nextNode;
-                return head;
+                p = p.next;
+            }
+            if (p == head) {
+                break;
             }
         }
+        Node next = maxNode.next;
+        maxNode.next = new Node(insertVal, next);
+        return head;
     }
 }

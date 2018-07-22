@@ -12,15 +12,20 @@ class Solution {
         if(root == null){
             return true;
         }
+        return checkTree(root, Integer.MAX_VALUE, Integer.MIN_VALUE);
+    }
+    
+    public boolean checkTree(TreeNode root, int higher, int lower){
+        if(root == null) return true;
         boolean status = true;
-        if( root.left != null && root.val > root.left.val) {
-            status = status && isValidBST(root.left);
-        } else if(root.left!=null) {
+        if(root.val > lower && root.val < higher) {
+            status = status && checkTree(root.left, root.val, lower);
+        } else {
             return false;
         }
-        if( root.right != null && root.val < root.right.val) {
-            status = status && isValidBST(root.right);
-        }else if(root.right!=null) {
+        if(root.val > lower && root.val < higher) {
+            status = status && checkTree(root.right,higher, root.val);
+        } else {
             return false;
         }
         return status;
