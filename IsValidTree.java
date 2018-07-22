@@ -15,9 +15,13 @@ class Solution {
         boolean status = true;
         if( root.left != null && root.val > root.left.val) {
             status = status && isValidBST(root.left);
+        } else if(root.left!=null) {
+            return false;
         }
-        if( root.right != null && root.val <= root.right.val) {
+        if( root.right != null && root.val < root.right.val) {
             status = status && isValidBST(root.right);
+        }else if(root.right!=null) {
+            return false;
         }
         return status;
     }
