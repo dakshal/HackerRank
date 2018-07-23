@@ -9,25 +9,15 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        if(root == null){
-            return true;
-        }
-        return checkTree(root, Long.MAX_VALUE, Long.MIN_VALUE);
+        return checkTree(root, null, null);
     }
     
-    public boolean checkTree(TreeNode root, Long higher, Long lower){
+    public boolean checkTree(TreeNode root, Integer higher, Integer lower){
         if(root == null) return true;
-        boolean status = true;
-        if(root.val > lower && root.val < higher) {
-            status = status && checkTree(root.left, (long) root.val, lower);
+        if((lower == null || root.val > lower) && (higher == null || root.val < higher)) {
+            return checkTree(root.left, root.val, lower) && checkTree(root.right, higher, root.val);
         } else {
             return false;
         }
-        if(root.val > lower && root.val < higher) {
-            status = status && checkTree(root.right, higher, (long) root.val);
-        } else {
-            return false;
-        }
-        return status;
     }
 }
