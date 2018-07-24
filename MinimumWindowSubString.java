@@ -1,4 +1,5 @@
 class Solution {
+    
     public String minWindow(String s, String t) {
         HashMap<Character, ArrayList<Integer>> pos = new HashMap<>();
         char[] charSet = s.toCharArray();
@@ -12,39 +13,37 @@ class Solution {
         boolean findMatch = false;
         for(int k=0; k < charSet.length; k++){
             findMatch =  pos.containsKey(charSet[k]);
-            // if(count>=val.length){
-            //     int range[] = findMax(pos);
-            //     i = range[0];
-            //     j = range[1];
-            //     if(j-i < max - min){
-            //         min = i;
-            //         max = j;
-            //     }
-            // }
+
             // System.out.println(findMatch+"\tch="+charSet[k]+"\tcount="+count+"\ti="+i+"\tj="+j+"\tk="+k+"\tmin="+min+"\tmax="+max);
-            if (findMatch && pos.get(charSet[k]).isEmpty()) {
-                count++;
+            if (findMatch) {
                 ArrayList<Integer> list = pos.get(charSet[k]);
                 list.add(k);
                 pos.put(charSet[k], list);
-            } else if (findMatch) {
-                ArrayList<Integer> list = pos.get(charSet[k]);
-                int last = list.get(list.size()-1);
-                list.add(k);
-                pos.put(charSet[k], list);
-                if(i == last) {
+                if(list.size()==1) {
+                    count++;
+                }
+                if(count>=val.length){
                     int range[] = findMax(pos);
-                    // System.out.println("before\t"+"i="+i+"\tj="+j);
+                    // System.out.println("\tbefore\t"+"i="+i+"\tj="+j);
                     i = range[0];
                     j = range[1];
-                    // System.out.println("after\ti="+i+"\tj="+j);
-                }
-                if(Math.abs(j-i) < Math.abs(max - min)){
-                    min = i;
-                    max = j;
+                    // System.out.println("\tafter\ti="+i+"\tj="+j);
+                    if(Math.abs(j-i) < Math.abs(max - min) && (i!=-1)){
+                        min = i;
+                        max = j;
+                    }
                 }
             }
         }
+        // System.out.println("before\t"+"i="+i+"\tj="+j);
+
+        if(min == -1){
+            int range[] = findMax(pos);
+            min = range[0];
+            max = range[1];
+            if(min == -1) return "";
+        }
+        // System.out.println("before\t"+"i="+i+"\tj="+j);
         return s.substring(min, max+1);
     }
     public int[] findMax(HashMap<Character, ArrayList<Integer>> pos){
