@@ -7,7 +7,9 @@ class Solution {
         for(int i=ch.length-1; i>=0; i--){
             if(ch[i]>48 && ch[i]<58) {
                 if(i<ch.length -1){
-                    int num = Integer.parseInt(ch[i]+""+ch[i+1]);
+                    int num = 28;
+                    if(ch[i]>48 && ch[i]<51)
+                        num = Integer.parseInt(ch[i]+""+ch[i+1]);
                     if(num>=27){
                         dp[i] = dp[i+1];
                     } else {
