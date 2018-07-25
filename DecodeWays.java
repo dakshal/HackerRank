@@ -1,16 +1,6 @@
 class Solution {
     public int numDecodings(String s) {
         char[] ch = s.toCharArray();
-        int dp[] = new int[s.length()+1];
-        dp[ch.length] = 1;
-        for(int i=ch.length; i>=0; i++){
-            if(s[i]>48 && s[i]<58) {
-                dp[pos]+=count;
-            } else {
-                dp[i] = dp[i+1]
-            }
-        }
-        
         int count = decodeString(ch, 0, dp);
         return count;
     }
