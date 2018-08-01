@@ -6,23 +6,32 @@ class Solution {
         char[] ch = s.toCharArray();
         int max = 0;
         
-        for(int i=0; i<ch.length; i++){
-            HashSet<Character> list = new HashSet<>();
-            int j=i;
-            for(; j<ch.length; j++){
-                // System.out.println(j+"\t"+ch[j]+"\t"+k+"\t"+list.size());
-                if(!list.contains(ch[j])){
-                    list.add(ch[j]);
-                    // System.out.println("found match:---> "+j+"\t"+ch[j]+"\t"+k+"\t"+list.size());
-                    if(list.size()>k){
-                        break;
-                    }
+        int[] map = new int[128];
+        int i=0, j=0;
+        int count = 0;
+        int dist = 0;
+        while(j<ch.length){
+            // System.out.println(ch[j]+"\t"+j);
+            map[ch[j]]+=1;
+            count++;
+            if(map[ch[j]] == 1)
+                dist++;
+            j++;
+            
+            while(dist>k && i<j){
+                map[ch[i]]--;
+                if(map[ch[i]] == 0){
+                    dist--;
                 }
+                i++;
+                count--;
             }
-            if((j-i)>max){
-                max = j-i;
+            if(count>max){
+                max = count;
             }
         }
+        
+
 
         return max;
     }
