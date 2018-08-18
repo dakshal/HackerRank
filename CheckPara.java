@@ -30,9 +30,9 @@ class GFG {
 
         public boolean isEmpty() {
             if (st == null || st.size() == 0) {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         public boolean isMatching(char var1, char var2) {
